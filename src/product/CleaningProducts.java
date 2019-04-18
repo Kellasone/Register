@@ -1,4 +1,4 @@
-package Product;
+package product;
 
 public class CleaningProducts extends Product{
     private String type;
@@ -7,6 +7,7 @@ public class CleaningProducts extends Product{
         super(name, price);
         this.type = type;
         this.tva=0.24;
+        this.productType ="CleaningProducts";
     }
 
 
@@ -20,6 +21,10 @@ public class CleaningProducts extends Product{
 
     @Override
     public String toString() {
-        return "Name: " + this.name + " Price: " + Double.toString(this.price) + " Type:" + this.type;
+        return this.getProductType() +","+
+                this.getName()+","+
+                this.getPrice()+","+
+                this.getTva()+","+
+                this.getType();
     }
 }

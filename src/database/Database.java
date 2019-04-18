@@ -1,6 +1,6 @@
-package Database;
+package database;
 
-import Product.Product;
+import product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,8 @@ public class Database {
         }
         return database;
     }
+
+
 
 
     public List<Product> getProductList() {

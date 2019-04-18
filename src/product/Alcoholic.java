@@ -1,4 +1,4 @@
-package Product;
+package product;
 
 public class Alcoholic extends Product {
     private int alcohol;
@@ -7,6 +7,7 @@ public class Alcoholic extends Product {
         super(name, price);
         this.alcohol = alcohol;
         this.tva = 0.24;
+        this.productType ="Alcoholic";
     }
 
     public int getAlcohol() {
@@ -19,6 +20,11 @@ public class Alcoholic extends Product {
 
     @Override
     public String toString() {
-        return "Name: " + this.name + " Price: " + Double.toString(this.price) + " Alcohol: " + this.alcohol;
+        return this.getProductType() + "," +
+                this.getName() + "," +
+                this.getPrice() + "," +
+                this.getTva() + "," +
+                this.getAlcohol();
     }
+
 }
