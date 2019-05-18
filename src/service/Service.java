@@ -1,14 +1,17 @@
 package service;
 
+import dailyHistory.DailyHistory;
+import database.Database;
 import product.*;
+import restaurant.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Scanner;
 
 
-public class Service extends console.Main{
+public class Service{
     private static Service service;
     External externalDatabase;
     Log log = new Log();
@@ -21,8 +24,9 @@ public class Service extends console.Main{
         }
         return service;
     }
-        public void serviceMode() throws IOException, FileNotFoundException
+        public void serviceMode(Database db, DailyHistory dh) throws IOException
         {
+            Scanner s = new Scanner(System.in);
             int typeOfService=1;
             while (typeOfService != 0) {
                 System.out.println("Select desired service:");
@@ -36,59 +40,57 @@ public class Service extends console.Main{
                 System.out.println("7. Export DB");
 
 
-                typeOfService = this.s.nextInt();
+                typeOfService = s.nextInt();
 
                 switch (typeOfService) {
                     case 0:
                         break;
                     case 1:
-
-
                         System.out.println("\t product type: ");
                         System.out.println("\t 1.Alcoholic Drink ");
                         System.out.println("\t 2.Non-Alcoholic Drink ");
                         System.out.println("\t 3.Food ");
                         System.out.println("\t 4.Cleaning product ");
-                        int typeOfProduct = this.s.nextInt();
+                        int typeOfProduct = s.nextInt();
                         System.out.println("\t Name:");
-                        String nameOfProduct = this.s.next();
+                        String nameOfProduct = s.next();
                         System.out.println("\t Price:");
-                        double priceOfProduct = this.s.nextDouble();
+                        double priceOfProduct = s.nextDouble();
 
 
                         if (typeOfProduct == 1) {
                             System.out.println("\t Alcohol percentage: ");
                             Product p = new Alcoholic(nameOfProduct, priceOfProduct, s.nextInt());
-                            if (this.db.contains(p)) {
+                            if (db.contains(p)) {
                                 System.out.println("product already in database. Aborting...");
                             } else
-                                this.db.addProduct(p);
+                                db.addProduct(p);
 
                         }
                         if (typeOfProduct == 2) {
                             System.out.println("\t Beverage type: ");
-                            Product p = new NonAlcoholic(nameOfProduct, priceOfProduct, this.s.next());
-                            if (this.db.contains(p)) {
-                                System.out.println("product already in database. Aborting...");
+                            Product p = new NonAlcoholic(nameOfProduct, priceOfProduct, s.next());
+                            if (db.contains(p)) {
+                                System.out.println("Product already in database. Aborting...");
                             } else {
-                                this.db.addProduct(p);
+                                db.addProduct(p);
                             }
                         }
                         if (typeOfProduct == 3) {
                             Product p = new Food(nameOfProduct, priceOfProduct);
-                            if (this.db.contains(p)) {
-                                System.out.println("product already in database. Aborting...");
+                            if (db.contains(p)) {
+                                System.out.println("Product already in database. Aborting...");
                             } else {
-                                this.db.addProduct(p);
+                                db.addProduct(p);
                             }
                         }
                         if (typeOfProduct == 4) {
                             System.out.println("\t Cleaning product type: ");
-                            Product p = new CleaningProducts(nameOfProduct, priceOfProduct, this.s.next());
-                            if (this.db.contains(p)) {
+                            Product p = new CleaningProducts(nameOfProduct, priceOfProduct, s.next());
+                            if (db.contains(p)) {
                                 System.out.println("product already in database. Aborting...");
                             } else {
-                                this.db.addProduct(p);
+                                db.addProduct(p);
                             }
                         }
 
@@ -96,34 +98,34 @@ public class Service extends console.Main{
                         break;
                     case 2:
                         System.out.println("Name of the product you want to delete: ");
-                        String itemToDelete = this.s.next();
-                        if (this.db.contains(itemToDelete)) {
-                            this.db.removeProduct(itemToDelete);
+                        String itemToDelete = s.next();
+                        if (db.contains(itemToDelete)) {
+                            db.removeProduct(itemToDelete);
                         } else
                             System.out.println("product not in the DataBase!");
                         log.addToLog("src/logs/logfile.csv","REMOVE_PRODUCT_FROM_DB");
                         break;
                     case 3:
-                        System.out.println(this.db.getProductList());
+                        System.out.println(db.getProductList());
                         log.addToLog("src/logs/logfile.csv","LIST_PRODUCTLIST");
                         break;
                     case 4:
                         log.addToLog("src/logs/logfile.csv","SEE_DAILY_HISTORY");
-                        System.out.println(this.dh);
+                        System.out.println(dh);
                         break;
                     case 5:
-                        System.out.println(this.dh);
-                        this.dh.delete();
+                        System.out.println(dh);
+                        dh.delete();
                         log.addToLog("src/logs/logfile.csv","CLOSE_THE_REGISTER");
                         break;
                     case 6:
                         externalDatabase = new External();
-                        externalDatabase.importDatabase("src/database/database.csv");
+                        externalDatabase.importDatabase("src/database/database.csv", db);
                         log.addToLog("src/logs/logfile.csv","IMPORT_DATABASE");
                         break;
                     case 7:
                         externalDatabase = new External();
-                        externalDatabase.exportDatabase("src/database/database.csv");
+                        externalDatabase.exportDatabase("src/database/database.csv", db);
                         log.addToLog("src/logs/logfile.csv","EXPORT_DATABASE");
                         break;
 
@@ -133,8 +135,9 @@ public class Service extends console.Main{
             }
         }
 
-        public void serveMode() throws IOException
+        public void serveMode(Restaurant hall, Database db, DailyHistory dh) throws IOException
         {
+            Scanner s = new Scanner(System.in);
             int typeOfServe=1;
             while (typeOfServe!= 0) {
                 System.out.println("Select desired serve option:");

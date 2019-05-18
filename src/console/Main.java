@@ -7,25 +7,26 @@ import restaurant.Restaurant;
 import service.External;
 import service.Service;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.*;
 
 
 public class Main {
-    protected static Scanner s = new Scanner(System.in);
-    protected static Database db = new Database();
-    protected static Restaurant hall = new Restaurant();
-    protected static DailyHistory dh = new DailyHistory();
-    protected static Product newProduct;
-    private static Service serviceClass = new Service();
-    public static void main(String[] args) throws IOException {
+       public static void main(String[] args) {
+        External firstImport = new External();
+        Scanner s = new Scanner(System.in);
+        Database db = new Database();
+        Restaurant hall = new Restaurant();
+        DailyHistory dh = new DailyHistory();
+        Service serviceClass = new Service();
 
-        External firstImport;
-        firstImport = new External();
-        firstImport.importDatabase("src/database/database.csv");
+           try {
+               firstImport.importDatabase("src/database/database.csv", db);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
 
-
-        int typeOfModule = 1;
+           int typeOfModule = 1;
 
         while(typeOfModule!=0) {
             System.out.println("Select desired Module");
@@ -39,13 +40,21 @@ public class Main {
                 case 0:
                     System.exit(0);
                 case 1:
-                    serviceClass.serviceMode();
+                    try {
+                        serviceClass.serviceMode(db, dh);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
-                    serviceClass.serveMode();
+                    try {
+                        serviceClass.serveMode(hall, db, dh);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
 
+            }
         }
-    }
     }
 }
