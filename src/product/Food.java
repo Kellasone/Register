@@ -6,6 +6,12 @@ public class Food extends Product {
         super(name, price);
         this.tva = 0.09;
         this.productType ="Food";
+
+    }
+    public Food()
+    {
+        this.tva = 0.09;
+        this.productType ="Food";
     }
 
     @Override

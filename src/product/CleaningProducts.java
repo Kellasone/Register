@@ -1,11 +1,16 @@
 package product;
 
 public class CleaningProducts extends Product{
+
     private String type;
 
     public CleaningProducts(String name, double price, String type) {
         super(name, price);
         this.type = type;
+
+    }
+    public CleaningProducts()
+    {
         this.tva=0.24;
         this.productType ="CleaningProducts";
     }

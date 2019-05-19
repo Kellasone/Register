@@ -2,10 +2,12 @@ package service;
 
 import dailyHistory.DailyHistory;
 import database.Database;
+import database.SqlDatabase;
 import product.*;
 import restaurant.Restaurant;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -24,8 +26,9 @@ public class Service{
         }
         return service;
     }
-        public void serviceMode(Database db, DailyHistory dh) throws IOException
+        public void serviceMode(SqlDatabase db, DailyHistory dh) throws IOException, SQLException
         {
+            String threadName = Thread.currentThread().getName();
             Scanner s = new Scanner(System.in);
             int typeOfService=1;
             while (typeOfService != 0) {
@@ -36,8 +39,11 @@ public class Service{
                 System.out.println("3. List database");
                 System.out.println("4. See Daily History");
                 System.out.println("5. Close the register");
+                /*
+                No longer needed since i use sql
                 System.out.println("6. Import DB");
                 System.out.println("7. Export DB");
+                */
 
 
                 typeOfService = s.nextInt();
@@ -62,7 +68,7 @@ public class Service{
                             System.out.println("\t Alcohol percentage: ");
                             Product p = new Alcoholic(nameOfProduct, priceOfProduct, s.nextInt());
                             if (db.contains(p)) {
-                                System.out.println("product already in database. Aborting...");
+                                System.out.println("Product already in database. Aborting...");
                             } else
                                 db.addProduct(p);
 
@@ -94,7 +100,7 @@ public class Service{
                             }
                         }
 
-                        log.addToLog("src/logs/logfile.csv","ADD_PRODUCT_TO_DB");
+                        log.addToLog("src/logs/logfile.csv","ADD_PRODUCT_TO_DB", threadName);
                         break;
                     case 2:
                         System.out.println("Name of the product you want to delete: ");
@@ -103,31 +109,32 @@ public class Service{
                             db.removeProduct(itemToDelete);
                         } else
                             System.out.println("product not in the DataBase!");
-                        log.addToLog("src/logs/logfile.csv","REMOVE_PRODUCT_FROM_DB");
+                        log.addToLog("src/logs/logfile.csv","REMOVE_PRODUCT_FROM_DB", threadName);
                         break;
                     case 3:
                         System.out.println(db.getProductList());
-                        log.addToLog("src/logs/logfile.csv","LIST_PRODUCTLIST");
+                        log.addToLog("src/logs/logfile.csv","LIST_PRODUCTLIST", threadName);
                         break;
                     case 4:
-                        log.addToLog("src/logs/logfile.csv","SEE_DAILY_HISTORY");
+                        log.addToLog("src/logs/logfile.csv","SEE_DAILY_HISTORY", threadName);
                         System.out.println(dh);
                         break;
                     case 5:
                         System.out.println(dh);
                         dh.delete();
-                        log.addToLog("src/logs/logfile.csv","CLOSE_THE_REGISTER");
+                        log.addToLog("src/logs/logfile.csv","CLOSE_THE_REGISTER", threadName);
                         break;
-                    case 6:
+                    /*
+                   case 6:
                         externalDatabase = new External();
                         externalDatabase.importDatabase("src/database/database.csv", db);
-                        log.addToLog("src/logs/logfile.csv","IMPORT_DATABASE");
+                        log.addToLog("src/logs/logfile.csv","IMPORT_DATABASE", threadName);
                         break;
                     case 7:
                         externalDatabase = new External();
                         externalDatabase.exportDatabase("src/database/database.csv", db);
-                        log.addToLog("src/logs/logfile.csv","EXPORT_DATABASE");
-                        break;
+                        log.addToLog("src/logs/logfile.csv","EXPORT_DATABASE", threadName);
+                        break;*/
 
 
                 }
@@ -135,8 +142,9 @@ public class Service{
             }
         }
 
-        public void serveMode(Restaurant hall, Database db, DailyHistory dh) throws IOException
+        public void serveMode(Restaurant hall, SqlDatabase db, DailyHistory dh) throws IOException, SQLException
         {
+            String threadName = Thread.currentThread().getName();
             Scanner s = new Scanner(System.in);
             int typeOfServe=1;
             while (typeOfServe!= 0) {
@@ -152,17 +160,17 @@ public class Service{
                         break;
                     case 1:
                         hall.addClient();
-                        log.addToLog("src/logs/logfile.csv","ADD_CLIENT");
+                        log.addToLog("src/logs/logfile.csv","ADD_CLIENT", threadName);
                         break;
 
                     case 2:
                         System.out.println(hall.getClientList());
-                        log.addToLog("src/logs/logfile.csv","LIST_CLIENTS");
+                        log.addToLog("src/logs/logfile.csv","LIST_CLIENTS", threadName);
                         break;
                     case 3:
                         System.out.println("Which client do you want to acces?");
                         int actualClient = s.nextInt();
-                        log.addToLog("src/logs/logfile.csv","ACCES CLIENT "+actualClient);
+                        log.addToLog("src/logs/logfile.csv","ACCES CLIENT "+actualClient, threadName);
                         if(hall.contains(actualClient))
                         {
                             int options=1;
@@ -186,11 +194,11 @@ public class Service{
                                         System.out.println("Enter the number of products");
                                         int numberOfProducts = s.nextInt();
                                         hall.getClient(actualClient).addProduct(productToAdd, numberOfProducts);
-                                        log.addToLog("src/logs/logfile.csv","ADD_PRODUCT_TO_CLIENT");
+                                        log.addToLog("src/logs/logfile.csv","ADD_PRODUCT_TO_CLIENT", threadName);
                                         break;
                                     case 2:
                                         System.out.println(hall.getClient(actualClient).getClientProducts());
-                                        log.addToLog("src/logs/logfile.csv","SEE_CLIENT_PRODUCTS");
+                                        log.addToLog("src/logs/logfile.csv","SEE_CLIENT_PRODUCTS", threadName);
                                         break;
 
                                     case 3:
@@ -202,7 +210,7 @@ public class Service{
                                         HashMap<Integer, Product> productHashMap = new HashMap<>();
                                         productHashMap.put(numberOfProductsToDelete,product);
                                         hall.getClient(actualClient).removeProduct(productHashMap);
-                                        log.addToLog("src/logs/logfile.csv","REMOVE_CLIENT_PRODUCT");
+                                        log.addToLog("src/logs/logfile.csv","REMOVE_CLIENT_PRODUCT", threadName);
                                         break;
                                     case 4:
                                         ArrayList<HashMap<Integer, Product> > clientProducts = hall.getClient(actualClient).getClientProducts();
@@ -210,7 +218,7 @@ public class Service{
                                         entryForDH.put(hall.getClient(actualClient).getClientNumber(), hall.getClient(actualClient).getClientProducts());
                                         dh.addEntry(entryForDH);
                                         hall.removeClient(actualClient);
-                                        log.addToLog("src/logs/logfile.csv","CLIENT_CASHOUT");
+                                        log.addToLog("src/logs/logfile.csv","CLIENT_CASHOUT", threadName);
                                         break;
 
                                 }

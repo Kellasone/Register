@@ -1,6 +1,7 @@
 package service;
 
 import database.Database;
+import database.SqlDatabase;
 import product.*;
 
 import java.io.*;
@@ -10,7 +11,8 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class External {
-    public void importDatabase(String filePath, Database db) throws IOException
+    /* No longer needed
+    public void importDatabase(String filePath, SqlDatabase db) throws IOException
     {
         FileReader fileReader = new FileReader(filePath);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -39,7 +41,7 @@ public class External {
         }
         bufferedReader.close();
     }
-
+     */
     public void exportDatabase(String filePath, Database db) throws IOException
     {
         FileWriter fw = new FileWriter(filePath,false);

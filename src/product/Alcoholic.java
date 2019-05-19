@@ -1,7 +1,7 @@
 package product;
 
 public class Alcoholic extends Product {
-    private int alcohol;
+    private double alcohol;
 
     public Alcoholic(String name, double price, int alcohol) {
         super(name, price);
@@ -10,11 +10,17 @@ public class Alcoholic extends Product {
         this.productType ="Alcoholic";
     }
 
-    public int getAlcohol() {
+    public Alcoholic()
+    {
+        this.tva=0.24;
+        this.productType ="Alcoholic";
+    }
+
+    public double getAlcohol() {
         return alcohol;
     }
 
-    public void setAlcohol(int alcohol) {
+    public void setAlcohol(double alcohol) {
         this.alcohol = alcohol;
     }
 

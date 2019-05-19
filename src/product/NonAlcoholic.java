@@ -4,12 +4,17 @@ public class NonAlcoholic extends Product{
     private String type;
 
 
-    public NonAlcoholic(String name, double price, String type) {
-        super(name, price);
-        this.type = type;
+    public NonAlcoholic()
+    {
         this.tva = 0.09;
         this.productType ="NonAlcoholic";
     }
+
+    public NonAlcoholic(String name, double price, String type) {
+        super(name, price);
+
+    }
+
 
     public void setType(String type) {
         this.type = type;

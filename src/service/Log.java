@@ -20,7 +20,7 @@ public class Log {
     }
 
 
-    public void addToLog(String filePath,String action) throws IOException
+    public void addToLog(String filePath, String action, String threadName) throws IOException
     {
         FileWriter fw = new FileWriter(filePath,true);
 
@@ -29,7 +29,7 @@ public class Log {
 
 
         time=new Timestamp(System.currentTimeMillis());
-        printWriter.println(action+","+time);
+        printWriter.println(action+","+time + "," + threadName);
 
         printWriter.flush();
         printWriter.close();

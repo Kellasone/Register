@@ -6,6 +6,10 @@ public class Product {
     protected double tva;
     protected String productType;
 
+    public Product()
+    {
+
+    }
     public Product(String name, double price) {
         this.name = name;
         this.price = price;
