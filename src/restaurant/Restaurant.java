@@ -8,6 +8,7 @@ public class Restaurant {
     private static Restaurant restaurant;
     private ArrayList <Client> clientList = new ArrayList<Client> ();
 
+    //done
     public static Restaurant Restaurant() {
         if(restaurant == null) {
             restaurant = new Restaurant();
@@ -15,14 +16,14 @@ public class Restaurant {
         }
         return restaurant;
     }
-
+    //done
     public void addClient ()
     {
         Client newClient  = new Client();
         clientList.add(newClient);
 
     }
-
+    //done
     public void removeClient(int clientNumber)
     {
         int i;
@@ -33,11 +34,11 @@ public class Restaurant {
         }
         clientList.remove(i);
     }
-
+    //done as showClientProducts
     public ArrayList<Client> getClientList() {
         return clientList;
     }
-
+    //done
     public boolean contains(int actualClient) {
         for(int i=0;i<clientList.size();i++)
         {
@@ -46,7 +47,7 @@ public class Restaurant {
         }
         return false;
     }
-
+    // no longer needed
     public Client getClient(int actualClient) {
         int i;
         for (i=0;i<clientList.size();i++)
@@ -57,4 +58,6 @@ public class Restaurant {
         return clientList.get(i);
 
     }
+
+
 }

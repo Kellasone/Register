@@ -226,5 +226,31 @@ public class SqlDatabase {
         return productList;
     }
 
+    public void changePrice(String productName, double newPrice) throws SQLException
+    {
+        PreparedStatement statement;
+        statement = sqlDatabaseConnection.prepareStatement("Update alcoholic set price=? where name=?");
+        statement.setDouble(1,newPrice);
+        statement.setString(2, productName);
+        statement.executeUpdate();
+
+        statement = sqlDatabaseConnection.prepareStatement("Update nonalcoholic set price=? where name=?");
+        statement.setDouble(1,newPrice);
+        statement.setString(2, productName);
+        statement.executeUpdate();
+
+        statement = sqlDatabaseConnection.prepareStatement("Update food set price=? where name=?");
+        statement.setDouble(1,newPrice);
+        statement.setString(2, productName);
+        statement.executeUpdate();
+
+        statement = sqlDatabaseConnection.prepareStatement("Update cleaning_products set price=? where name=?");
+        statement.setDouble(1,newPrice);
+        statement.setString(2, productName);
+        statement.executeUpdate();
+
+
+    }
+
 
 }

@@ -1,10 +1,11 @@
 package console;
 
-import dailyHistory.DailyHistory;
+import dailyHistory.SqlDailyHistory;
 import database.Database;
 import database.SqlDatabase;
 import product.Product;
 import restaurant.Restaurant;
+import restaurant.SqlRestaurant;
 import service.External;
 import service.Service;
 
@@ -16,20 +17,14 @@ import java.sql.*;
 
 public class Main{
        public static void main(String[] args) throws SQLException {
-        External firstImport = new External();
+
         Scanner s = new Scanner(System.in);
-        //Database db = new Database();
+
            SqlDatabase db = new SqlDatabase();
-           Restaurant hall = new Restaurant();
-        DailyHistory dh = new DailyHistory();
-        Service serviceClass = new Service();
-            /* No longer needed
-           try {
-               firstImport.importDatabase("src/database/database.csv", db);
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-*/
+           SqlRestaurant hall = new SqlRestaurant();
+           SqlDailyHistory dh = new SqlDailyHistory();
+           Service serviceClass = new Service();
+
            int typeOfModule = 1;
 
         while(typeOfModule!=0) {

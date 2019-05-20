@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class DailyHistory {
     private static ArrayList< HashMap<Integer, ArrayList<HashMap < Integer, Product> > > > historyList = new ArrayList<> ();
-
+    //no needed
     public static ArrayList<HashMap<Integer, ArrayList< HashMap<Integer, Product>>>> DailyHistory() {
         if(historyList == null) {
             historyList = new ArrayList<>();
@@ -16,11 +16,14 @@ public class DailyHistory {
         return historyList;
     }
 
+
+    //done
     public void addEntry(HashMap<Integer, ArrayList<HashMap<Integer, Product> > >  entryToAdd)
     {
         historyList.add(entryToAdd);
     }
 
+    //done
     @Override
     public String toString() {
         String stringToReturn = new String();
@@ -32,7 +35,7 @@ public class DailyHistory {
         }
         return stringToReturn;
     }
-
+    //done
     public void delete() {
         while(historyList.size()!=0)
             historyList.remove(historyList.size()-1);
