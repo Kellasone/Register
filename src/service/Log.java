@@ -9,10 +9,11 @@ import java.sql.Timestamp;
 
 public class Log {
 
-    Timestamp time;
     private static Log log;
+    Timestamp time;
+
     public static Log Log() {
-        if(log == null) {
+        if (log == null) {
             log = new Log();
             return log;
         }
@@ -20,16 +21,15 @@ public class Log {
     }
 
 
-    public void addToLog(String filePath, String action, String threadName) throws IOException
-    {
-        FileWriter fw = new FileWriter(filePath,true);
+    public void addToLog(String filePath, String action, String threadName) throws IOException {
+        FileWriter fw = new FileWriter(filePath, true);
 
         BufferedWriter bufferedWriter = new BufferedWriter(fw);
         PrintWriter printWriter = new PrintWriter(bufferedWriter);
 
 
-        time=new Timestamp(System.currentTimeMillis());
-        printWriter.println(action+","+time + "," + threadName);
+        time = new Timestamp(System.currentTimeMillis());
+        printWriter.println(action + "," + time + "," + threadName);
 
         printWriter.flush();
         printWriter.close();

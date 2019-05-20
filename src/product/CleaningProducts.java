@@ -1,6 +1,6 @@
 package product;
 
-public class CleaningProducts extends Product{
+public class CleaningProducts extends Product {
 
     private String type;
 
@@ -9,10 +9,10 @@ public class CleaningProducts extends Product{
         this.type = type;
 
     }
-    public CleaningProducts()
-    {
-        this.tva=0.24;
-        this.productType ="CleaningProducts";
+
+    public CleaningProducts() {
+        this.tva = 0.24;
+        this.productType = "CleaningProducts";
     }
 
 
@@ -26,10 +26,10 @@ public class CleaningProducts extends Product{
 
     @Override
     public String toString() {
-        return this.getProductType() +","+
-                this.getName()+","+
-                this.getPrice()+","+
-                this.getTva()+","+
+        return this.getProductType() + "," +
+                this.getName() + "," +
+                this.getPrice() + "," +
+                this.getTva() + "," +
                 this.getType();
     }
 }

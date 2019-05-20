@@ -1,23 +1,17 @@
 package service;
 
-import dailyHistory.DailyHistory;
 import dailyHistory.SqlDailyHistory;
-import database.Database;
 import database.SqlDatabase;
 import product.*;
-import restaurant.Restaurant;
 import restaurant.SqlRestaurant;
 
 import java.io.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class Service {
     private static Service service;
-    External externalDatabase;
     Log log = new Log();
 
 
@@ -42,12 +36,6 @@ public class Service {
             System.out.println("4. List database");
             System.out.println("5. See Daily History");
             System.out.println("6. Close the register");
-
-                /*
-                No longer needed since i use sql
-                System.out.println("6. Import DB");
-                System.out.println("7. Export DB");
-                */
 
 
             typeOfService = s.nextInt();

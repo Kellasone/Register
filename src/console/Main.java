@@ -1,12 +1,8 @@
 package console;
 
 import dailyHistory.SqlDailyHistory;
-import database.Database;
 import database.SqlDatabase;
-import product.Product;
-import restaurant.Restaurant;
 import restaurant.SqlRestaurant;
-import service.External;
 import service.Service;
 
 
@@ -15,19 +11,19 @@ import java.util.*;
 import java.sql.*;
 
 
-public class Main{
-       public static void main(String[] args) throws SQLException {
+public class Main {
+    public static void main(String[] args) throws SQLException {
 
         Scanner s = new Scanner(System.in);
 
-           SqlDatabase db = new SqlDatabase();
-           SqlRestaurant hall = new SqlRestaurant();
-           SqlDailyHistory dh = new SqlDailyHistory();
-           Service serviceClass = new Service();
+        SqlDatabase db = new SqlDatabase();
+        SqlRestaurant hall = new SqlRestaurant();
+        SqlDailyHistory dh = new SqlDailyHistory();
+        Service serviceClass = new Service();
 
-           int typeOfModule = 1;
+        int typeOfModule = 1;
 
-        while(typeOfModule!=0) {
+        while (typeOfModule != 0) {
             System.out.println("Select desired Module");
             System.out.println("0. Exit");
             System.out.println("1. Service");

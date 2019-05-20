@@ -7,13 +7,12 @@ public class Alcoholic extends Product {
         super(name, price);
         this.alcohol = alcohol;
         this.tva = 0.24;
-        this.productType ="Alcoholic";
+        this.productType = "Alcoholic";
     }
 
-    public Alcoholic()
-    {
-        this.tva=0.24;
-        this.productType ="Alcoholic";
+    public Alcoholic() {
+        this.tva = 0.24;
+        this.productType = "Alcoholic";
     }
 
     public double getAlcohol() {
